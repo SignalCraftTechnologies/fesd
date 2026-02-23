@@ -1,0 +1,60 @@
+{
+    "version": 10,
+    "configurePresets": [
+        {
+            "name": "user-debug",
+            "inherits": [
+                "vcpkg-standard-debug"
+            ],
+            "generator": "Visual Studio 17 2022"
+        },
+        {
+            "name": "user-release",
+            "inherits": [
+                "vcpkg-standard-release"
+            ],
+            "generator": "Visual Studio 17 2022"
+        },
+        {
+            "name": "user-release32",
+            "inherits": [
+                "vcpkg-standard-release-win32"
+            ],
+            "generator": "Visual Studio 17 2022"
+        },
+        {
+            "name": "user-debug-static (GTEST)",
+            "inherits": [
+                "vcpkg-static-debug"
+            ],
+            "generator": "Visual Studio 17 2022"
+        },
+        {
+            "name": "user-release-python",
+            "inherits": [
+                "vcpkg-python-release"
+            ],
+            "generator": "Visual Studio 17 2022"
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "user-Debug",
+            "displayName": "userDebug",
+            "configurePreset": "user-debug",
+            "configuration": "Debug"
+        },
+        {
+            "name": "user-Release32",
+            "displayName": "userRelease",
+            "configurePreset": "user-release32",
+            "configuration": "Release"
+        },
+         {
+            "name": "user-python-Release",
+            "displayName": "userPythonRelease",
+            "configurePreset": "user-release-python",
+            "configuration": "Release"
+        }
+    ]
+}

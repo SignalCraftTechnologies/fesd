@@ -1,0 +1,278 @@
+{
+    "version": 10,
+    "configurePresets": [
+        {
+            "name": "base",
+            "hidden": true,
+            "binaryDir": "${sourceDir}/build",
+            "cacheVariables": {
+                "ENABLE_PY_BUILD": "FALSE",
+                "ENABLE_STATIC_BUILD": "FALSE"
+            }
+        },
+        {
+            "name": "base-vcpkg",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
+                "VCPKG_TARGET_TRIPLET": "x64-windows"
+            },
+            "architecture": 
+            {
+                "value": "x64",
+                "strategy": "set"
+            }
+        },
+        {
+            "name": "base-vcpkg-32bit",
+            "hidden": true,
+            "inherits": ["base-vcpkg"],
+            "cacheVariables": {
+                "VCPKG_TARGET_TRIPLET": "x86-windows"
+            },
+            "architecture": 
+            {
+                "value": "Win32",
+                "strategy": "set"
+            }
+        },
+        {
+            "name": "base-standard",
+            "hidden": true,
+            "inherits": ["base"],
+            "cacheVariables": {
+                "CMAKE_ARCHIVE_OUTPUT_DIRECTORY": "${sourceDir}/build/Output",
+                "CMAKE_LIBRARY_OUTPUT_DIRECTORY": "${sourceDir}/build/Output",
+                "CMAKE_RUNTIME_OUTPUT_DIRECTORY": "${sourceDir}/build/Output"
+            }
+        },
+        {
+            "name": "base-python",
+            "hidden": true,
+            "inherits": ["base"],
+            "cacheVariables": {
+                "ENABLE_PY_BUILD": "TRUE",
+                "CMAKE_ARCHIVE_OUTPUT_DIRECTORY": "${sourceDir}/build/Output-py",
+                "CMAKE_LIBRARY_OUTPUT_DIRECTORY": "${sourceDir}/build/Output-py",
+                "CMAKE_RUNTIME_OUTPUT_DIRECTORY": "${sourceDir}/build/Output-py"
+            }
+        },
+        {
+            "name": "base-static",
+            "hidden": true,
+            "inherits": ["base"],
+            "cacheVariables": {
+                "ENABLE_STATIC_BUILD": "TRUE",
+                "CMAKE_ARCHIVE_OUTPUT_DIRECTORY": "${sourceDir}/build/Output-static",
+                "CMAKE_LIBRARY_OUTPUT_DIRECTORY": "${sourceDir}/build/Output-static",
+                "CMAKE_RUNTIME_OUTPUT_DIRECTORY": "${sourceDir}/build/Output-static"
+            }
+        },
+        {
+            "name": "base-debug",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        },
+        {
+            "name": "base-release",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        },
+        {
+            "name": "standard-debug",
+            "inherits": [
+                "base-debug",
+                "base-standard"       
+            ]
+        },
+        {
+            "name": "standard-release",
+            "inherits": [
+                "base-release",
+                "base-standard"       
+            ]
+        },
+        {
+            "name": "python-debug",
+            "inherits": [
+                "base-debug",
+                "base-python"     
+            ]
+        },
+        {
+            "name": "python-release",
+            "inherits": [
+                "base-release",
+                "base-python"     
+            ]
+        },
+        {
+            "name": "static-debug",
+            "inherits": [
+                "base-debug",
+                "base-static"
+            ]
+        },
+        {
+            "name": "static-release",
+            "inherits": [
+                "base-release",
+                "base-static"
+            ]
+        },
+        {
+            "name": "vcpkg-standard-debug",
+            "inherits": [
+                "base-vcpkg",
+                "base-debug",
+                "base-standard"
+            ]
+        },        
+        {
+            "name": "vcpkg-standard-release",
+            "inherits": [
+                "base-vcpkg",
+                "base-release",
+                "base-standard"
+            ]
+        },
+        {
+            "name": "vcpkg-standard-debug-win32",
+            "inherits": [
+                "base-vcpkg-32bit",
+                "base-debug",
+                "base-standard"
+            ]
+        },
+        {
+            "name": "vcpkg-standard-release-win32",
+            "inherits": [
+                "base-vcpkg-32bit",
+                "base-release",
+                "base-standard"
+            ]
+        },
+        {
+            "name": "vcpkg-python-debug",
+            "inherits": [
+                "base-vcpkg",
+                "base-debug",
+                "base-python"
+            ]
+        },
+        {
+            "name": "vcpkg-python-release",
+            "inherits": [
+                "base-vcpkg",
+                "base-release",
+                "base-python"
+            ]
+        },
+        {
+            "name": "vcpkg-static-debug",
+            "inherits": [
+                "base-vcpkg",
+                "base-debug",
+                "base-static"
+            ]
+        },
+        {
+            "name": "vcpkg-static-release",
+            "inherits": [
+                "base-vcpkg",
+                "base-release",
+                "base-static"
+            ]
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "debug",
+            "displayName": "debug",
+            "configurePreset": "standard-debug",
+            "configuration": "Debug"
+        },
+        {
+            "name": "release",
+            "displayName": "release",
+            "configurePreset": "standard-release",
+            "configuration": "Release"
+        },
+        {
+            "name": "debug-py",
+            "displayName": "debug",
+            "inherits": ["debug"],
+            "configurePreset": "python-debug"
+        },
+        {
+            "name": "release-py",
+            "displayName": "release",
+            "inherits": ["release"],
+            "configurePreset": "python-release"
+        },
+        {
+            "name": "debug-static",
+            "displayName": "debug",
+            "inherits": ["debug"],
+            "configurePreset": "static-debug"
+        },
+        {
+            "name": "release-static",
+            "displayName": "release",
+            "inherits": ["release"],
+            "configurePreset": "static-release"
+        },
+        {
+            "name": "vcpkg-debug",
+            "displayName": "debug",
+            "inherits": ["debug"],
+            "configurePreset": "vcpkg-standard-debug"
+        },
+        {
+            "name": "vcpkg-release",
+            "displayName": "release",
+            "inherits": ["release"],
+            "configurePreset": "vcpkg-standard-release"
+        },
+        {
+            "name": "vcpkg-debug-win32",
+            "displayName": "debug",
+            "inherits": ["debug"],
+            "configurePreset": "vcpkg-standard-debug-win32"
+        },
+        {
+            "name": "vcpkg-release-win32",
+            "displayName": "release",
+            "inherits": ["release"],
+            "configurePreset": "vcpkg-standard-release-win32"
+        },
+        {
+            "name": "vcpkg-debug-py",
+            "displayName": "debug",
+            "inherits": ["debug"],
+            "configurePreset": "vcpkg-python-debug"
+        },
+        {
+            "name": "vcpkg-release-py",
+            "displayName": "release",
+            "inherits": ["release"],
+            "configurePreset": "vcpkg-python-release"
+        },
+        {
+            "name": "vcpkg-debug-static",
+            "displayName": "debug",
+            "inherits": ["debug"],
+            "configurePreset": "vcpkg-static-debug"
+        },
+        {
+            "name": "vcpkg-release-static",
+            "displayName": "release",
+            "inherits": ["release"],
+            "configurePreset": "vcpkg-static-release"
+        }
+    ]
+}

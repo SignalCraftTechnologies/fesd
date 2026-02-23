@@ -1,0 +1,6 @@
+.*
+!.gitignore
+!.gitmodules
+
+**/build/
+*.json/

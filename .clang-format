@@ -1,0 +1,65 @@
+---
+Language: Cpp
+BasedOnStyle: Microsoft
+
+AccessModifierOffset: -3
+AlignConsecutiveAssignments: false
+AlignArrayOfStructures: Left
+AlignConsecutiveMacros:
+  Enabled: true
+  AcrossComments: true
+AllowShortBlocksOnASingleLine: Empty
+AllowShortCaseLabelsOnASingleLine: true
+AllowShortEnumsOnASingleLine: true
+AllowShortFunctionsOnASingleLine: Empty
+AllowShortIfStatementsOnASingleLine: AllIfsAndElse
+AllowShortLoopsOnASingleLine: false
+AlwaysBreakAfterReturnType: None
+AlwaysBreakTemplateDeclarations: Yes
+BinPackArguments: false
+BinPackParameters: false
+BreakBeforeBraces: Custom
+BraceWrapping:
+     AfterClass: true
+     AfterControlStatement: true
+     AfterEnum: true
+     AfterFunction: true
+     AfterNamespace: false
+     AfterStruct: true
+
+BreakBeforeTernaryOperators: true
+BreakConstructorInitializers: BeforeColon
+BreakStringLiterals: true
+ColumnLimit: 160
+CompactNamespaces: true
+ContinuationIndentWidth: 3
+Cpp11BracedListStyle: true
+IncludeBlocks: Preserve
+IncludeCategories:
+  - Regex:           '^"'
+    Priority:        1
+  - Regex:           '^<[a-z]*>$'
+    Priority:        99
+  - Regex:           '.*'
+    Priority:        10
+
+IndentCaseLabels: true
+IndentGotoLabels: false
+IndentWrappedFunctionNames: false
+IndentWidth: 4
+KeepEmptyLinesAtTheStartOfBlocks: false
+MaxEmptyLinesToKeep: 1
+NamespaceIndentation: None
+PackConstructorInitializers: CurrentLine
+PointerAlignment: Left
+ReflowComments: true
+SortIncludes: true
+SpaceAfterCStyleCast: false
+SpaceAfterTemplateKeyword: false
+SpaceBeforeAssignmentOperators: true
+SpaceBeforeParens: ControlStatements
+SpacesBeforeTrailingComments: 1
+SpacesInParentheses: false
+SpacesInSquareBrackets: false
+TabWidth: 4
+UseTab: Never
