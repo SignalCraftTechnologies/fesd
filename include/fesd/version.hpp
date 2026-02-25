@@ -10,9 +10,9 @@ namespace fesd
 
 namespace version
 {
-    const uint16_t major = 0;
+    const uint16_t major = 1;
     const uint16_t minor = 0;
-    const uint16_t point = 7;
+    const uint16_t point = 0;
 }
 
 FESD_API std::string getVersion(void);

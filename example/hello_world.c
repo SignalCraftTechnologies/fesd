@@ -15,7 +15,9 @@ extern "C" {
 
 int main() {
 
-    char* port = "COM6,COM14";
+    // Example inputs
+    char* ports = "COM6,COM14";
+    uint16_t desiredSlotId = 1;
 
     char stringBuffer[MAXSTRINGLENGTH];
     uint16_t stringSize = MAXSTRINGLENGTH;
@@ -25,15 +27,18 @@ int main() {
     }
     fprintf(stderr, "FESD Version: %s \r\n", stringBuffer);
 
+    // Start FE serial driver session on specified COM ports
     SessionRef_t session = 0;
-    if(FESD_Initialize(port, &session)) {
+    if(FESD_Initialize(ports, &session)) {
         exit(1);
     }
+
+    // Find FESD Device with specified parameters
     uint16_t deviceCount = 0;
     if(FESD_GetDeviceCount(session, &deviceCount)) {
         exit(1);
     }
-    fprintf(stderr, "Found %u FESD devices", deviceCount);
+    fprintf(stderr, "Found %u FESD devices using ports %s \r\n", deviceCount, ports);
 
     uint16_t deviceSlotIDs[MAXDEVICES];
     FESD_DeviceType_t deviceTypes[MAXDEVICES];
@@ -46,35 +51,25 @@ int main() {
 
     uint32_t sc2470SerialNumber = 0;
     for(int i=0; i< deviceCount; i++) {
-        if( deviceTypes[i] == FESD_DEV_TYPE_SC2470) {
+        if(deviceSlotIDs[i] == desiredSlotId && deviceTypes[i] == FESD_DEV_TYPE_SC2470) {
             sc2470SerialNumber = deviceSerialNumbers[i];
             break;
         }
     }
     if(!sc2470SerialNumber) {
+        fprintf(stderr, "Error: Could not find SC2470 with desired slotID from provided ports \r\n");
         exit(1);
     }
-    fprintf(stderr, "Found SC2470");
+    fprintf(stderr, "Found SC2470 with serial number %u\r\n", sc2470SerialNumber);
 
-    fprintf(stderr, "Initializing a SC2470 device...");
+    // Get SC2470 Commander for found device
     uint64_t sc2470Ref_placeholder = 0;
     DeviceRef_t sc2470Ref = &sc2470Ref_placeholder;
     if(FESD_InitializeSC2470Commander(session, sc2470SerialNumber, &sc2470Ref)) {
         exit(1);
     }
-    uint16_t id = 0;
-    if(FESD_GetId(sc2470Ref, &id)) {
-        exit(1);
-    }
-    fprintf(stderr, "slotId: %d", id);
 
-    FESD_SystemRole_t systemRole = 0;
-    if(FESD_GetSystemRole(sc2470Ref, &systemRole)) {
-        exit(1);
-    }
-    bool isController = systemRole == FESD_SYSTEM_ROLE_CONTROLLER;
-    fprintf(stderr, "SystemRole: %s", systemRole ? "Peripheral" : "Controller");
-
+    // Cleanup
     FESD_DeInitialize(session);
     return 0;
 }
