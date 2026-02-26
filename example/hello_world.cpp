@@ -6,8 +6,15 @@
 int main()
 {
     // Example inputs
-    std::string ports = "COM6,COM14";
-    uint16_t desiredSlotId = 1;
+    
+    std::string ports = "";
+    std::string desiredSlotStr = "";
+    std::cout << "SELECT COM PORTS: eg: 'COM6,COM14'" << std::endl;
+    std::getline(std::cin, ports);
+    std::cout << "SELECT DESIRED SLOTID 0/1 eg: '1'" << std::endl;
+    std::getline(std::cin, desiredSlotStr);
+
+    uint16_t desiredSlotId = desiredSlotStr == "1" ? 1 : 0;
 
     // Start FE serial driver session on specified COM port
     fesd::FESerialDriver fesd = fesd::FESerialDriver(ports);
