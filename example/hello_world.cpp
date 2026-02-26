@@ -9,7 +9,7 @@ int main()
     
     std::string ports = "";
     std::string desiredSlotStr = "";
-    std::cout << "SELECT COM PORTS: eg: 'COM6,COM14'" << std::endl;
+    std::cout << "SELECT COM PORTS: eg: 'COM6,COM14' or '/dev/ttyUSB0,/dev/ttyUSB1'" << std::endl;
     std::getline(std::cin, ports);
     std::cout << "SELECT DESIRED SLOTID 0/1 eg: '1'" << std::endl;
     std::getline(std::cin, desiredSlotStr);
